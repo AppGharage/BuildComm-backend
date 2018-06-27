@@ -2,12 +2,13 @@ const db = require('../config/config.js');
 const bcrypt = require('bcrypt');
 
 const saltRounds = 10;
+
 const Users = db.users;
 
 // Post a users
 exports.create = (req, res) => {
     // Save to MySQL database
-    //console.log(req.body);
+
 
     //check to make sure none of the field/fields are empty
     if (req.body.fullName.length == 0 || req.body.email.length == 0 ||

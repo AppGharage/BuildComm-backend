@@ -1,26 +1,20 @@
 module.exports = (sequelize, Sequelize) => {
-    const Users = sequelize.define('users', {
+    const Community = sequelize.define('communities', {
         id: {
             type: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true,
         },
-        fullName: {
+        organizationName: {
             type: Sequelize.STRING
         },
-        email: {
+        organizationURL: {
             type: Sequelize.STRING
         },
-        password: {
+        description: {
             type: Sequelize.STRING
-        },
-        telephone: {
-            type: Sequelize.STRING
-        },
-        community_id: {
-            type: Sequelize.INTEGER
         }
     });
 
-    return Users;
+    return Community;
 }
