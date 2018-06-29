@@ -17,7 +17,7 @@ exports.create = (req, res) => {
             'message': 'All fields are required'
         });
     } else {
-        Users.create({
+        Members.create({
             fullName: req.body.fullName,
             email: req.body.email,
             category: req.body.category,
