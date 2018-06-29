@@ -12,7 +12,8 @@ exports.create = (req, res) => {
 
     //check to make sure none of the field/fields are empty
     if (req.body.fullName.length == 0 || req.body.email.length == 0 ||
-        req.body.password.lenght == 0) {
+        req.body.password.lenght == 0 || req.body.telephone.length == 0 ||
+        req.body.community_id.length == 0) {
         res.json({
             'status': false,
             'message': 'All fields are required'
