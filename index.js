@@ -5,6 +5,9 @@ const bcrypt = require('bcrypt');
 
 
 
+// Use the environment variable or use a given port
+const PORT = process.env.PORT || 8080;
+
 // disable urlencoded form request
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -22,11 +25,9 @@ require('./app/route/users-route.js')(app);
 require('./app/route/community-route.js')(app);
 require('./app/route/members-route.js')(app);
 
-// Create a Server
-const server = app.listen(3000, function() {
 
-    const host = server.address().address
-    const port = server.address().port
 
-    console.log("App listening at http://%s:%s", host, port)
-})
+// Start the server
+app.listen(PORT, () => {
+    console.log('Server listening on: http://localhost:%s', PORT);
+});
