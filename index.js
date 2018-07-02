@@ -12,7 +12,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // enable json form request
 app.use(bodyParser.json());
 // force: true will drop the table if it already exists
-if (process.env.ENVIRONMENT || 'development') {
+const env = process.env.ENVIRONMENT || 'development';
+if (env) {
     db.sequelize.sync({ force: true }).then(() => {
         console.log('Drop and Resync with { force: true }');
     });
