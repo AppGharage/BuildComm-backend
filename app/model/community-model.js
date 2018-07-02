@@ -6,7 +6,10 @@ module.exports = (sequelize, Sequelize) => {
             autoIncrement: true,
         },
         community_name: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
+            unique: {
+
+            }
         },
         community_url: {
             type: Sequelize.STRING

@@ -16,12 +16,10 @@ if (process.env.ENVIRONMENT || 'development') {
     db.sequelize.sync({ force: true }).then(() => {
         console.log('Drop and Resync with { force: true }');
     });
-} else {
-    db.sequelize.sync({ force: false })
 }
 
 
-app.get('/', () => { res.send('welcome') });
+app.get('/', (req, res) => { res.send('welcome') });
 
 require('./app/route/users-route.js')(app);
 require('./app/route/community-route.js')(app);

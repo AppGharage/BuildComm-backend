@@ -21,7 +21,7 @@ module.exports = (sequelize, Sequelize) => {
         telephone: {
             type: Sequelize.STRING
         },
-        communities_id: {
+        community_id: {
             type: Sequelize.INTEGER
         }
     });
