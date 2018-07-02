@@ -7,6 +7,7 @@ const Community = db.communities;
 // Post 
 exports.create = (req, res) => {
     // Save to MySQL database
+    console.log(req.body);
 
     //check to make sure none of the field/fields are empty
     if (req.body.community_name.length == 0 || req.body.community_url.length == 0 ||
@@ -28,6 +29,7 @@ exports.create = (req, res) => {
             });
         });
     }
+
 };
 
 
