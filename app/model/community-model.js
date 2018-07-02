@@ -8,7 +8,8 @@ module.exports = (sequelize, Sequelize) => {
         community_name: {
             type: Sequelize.STRING,
             unique: {
-
+                name: 'communities_name',
+                msg: 'A community with this name already exists.',
             }
         },
         community_url: {
