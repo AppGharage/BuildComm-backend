@@ -12,9 +12,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // enable json form request
 app.use(bodyParser.json());
 // force: true will drop the table if it already exists
-db.sequelize.sync({ force: true }).then(() => {
-    console.log('Drop and Resync with { force: true }');
-});
+if (process.env.ENVIRONMENT === 'development') {
+    db.sequelize.sync({ force: true }).then(() => {
+        console.log('Drop and Resync with { force: true }');
+    });
+} else {
+    db.sequelize.sync({ force: false })
+}
+
 
 app.get('/', () => { res.send('welcome') });
 

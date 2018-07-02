@@ -9,7 +9,11 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         },
         email: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
+            unique: {
+                name: 'users_email',
+                msg: 'A user with this email already exists.'
+            },
         },
         category: {
             type: Sequelize.STRING

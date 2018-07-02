@@ -4,27 +4,27 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const Community = db.communities;
 
-// Post a users
+// Post 
 exports.create = (req, res) => {
     // Save to MySQL database
-    console.log(req.body);
 
     //check to make sure none of the field/fields are empty
-    if (req.body.organizationName.length == 0 || req.body.organizationURL.length == 0 ||
-        req.body.description.lenght == 0) {
+    if (req.body.community_name.length == 0 || req.body.community_url.length == 0 ||
+        req.body.description.length == 0) {
         res.json({
             'status': false,
             'message': 'All fields are required'
         });
     } else {
         Community.create({
-            organizationName: req.body.organizationName,
-            organizationURL: req.body.organizationURL,
+            community_name: req.body.community_name,
+            community_url: req.body.community_url,
             description: req.body.description
         }).then(communities => {
             // Send created users to client
             res.json({
                 'status': true,
+                'id': communities.id
             });
         });
     }
@@ -50,8 +50,8 @@ exports.findById = (req, res) => {
 exports.update = (req, res) => {
     const id = req.params.communitiesId;
     Community.update({
-        organizationName: req.body.organizationName,
-        organizationURL: req.body.organizationURL,
+        community_name: req.body.community_name,
+        community_url: req.body.community_url,
         description: req.body.description,
     }, { where: { id: req.params.communitiesId } }).then(() => {
         res.status(200).send("updated successfully a community with id = " + id);

@@ -13,7 +13,7 @@ exports.create = (req, res) => {
     //check to make sure none of the field/fields are empty
     if (req.body.fullName.length == 0 || req.body.email.length == 0 ||
         req.body.password.lenght == 0 || req.body.telephone.length == 0 ||
-        req.body.community_id.length == 0) {
+        req.body.communities_id.length == 0) {
         res.json({
             'status': false,
             'message': 'All fields are required'
@@ -24,7 +24,9 @@ exports.create = (req, res) => {
             Users.create({
                 fullName: req.body.fullName,
                 email: req.body.email,
-                password: hash
+                password: hash,
+                telephone: req.body.telephone,
+                communities_id: req.body.communities_id
             }).then(users => {
                 // Send created users to client
                 res.json({
@@ -54,7 +56,13 @@ exports.findById = (req, res) => {
 // Update a Customer
 exports.update = (req, res) => {
     const id = req.params.userId;
-    Users.update({ fullName: req.body.fullName, email: req.body.email, password: req.body.password }, { where: { id: req.params.usersId } }).then(() => {
+    Users.update({
+        fullName: req.body.fullName,
+        email: req.body.email,
+        password: req.body.password,
+        telephone: req.body.telephone,
+        communities_id: req.body.communities_id
+    }, { where: { id: req.params.usersId } }).then(() => {
         res.status(200).send("updated successfully a users with id = " + id);
     });
 };

@@ -9,7 +9,11 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         },
         email: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
+            unique: {
+                name: 'users_email',
+                msg: 'A user with this email already exists.',
+            },
         },
         password: {
             type: Sequelize.STRING
@@ -17,7 +21,7 @@ module.exports = (sequelize, Sequelize) => {
         telephone: {
             type: Sequelize.STRING
         },
-        community_id: {
+        communities_id: {
             type: Sequelize.INTEGER
         }
     });

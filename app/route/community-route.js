@@ -2,18 +2,18 @@ module.exports = (app) => {
 
     const community = require('../controllers/community-controller.js');
 
-    // Create a new Customer
+    // Create a new community
     app.post('/api/community', community.create);
 
-    // Retrieve all Customer
+    // Retrieve all community
     app.get('/api/community', community.findAll);
 
-    // Retrieve a single Customer by Id
+    // Retrieve a single community by Id
     app.get('/api/community/:communitiesId', community.findById);
 
-    // Update a Customer with Id
+    // Update community with Id
     app.put('/api/community/:communitiesId', community.update);
 
-    // Delete a Customer with Id
+    // Delete community with Id
     app.delete('/api/community/:communiiesId', community.delete);
 }

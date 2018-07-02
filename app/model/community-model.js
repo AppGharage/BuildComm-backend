@@ -5,10 +5,10 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true,
             autoIncrement: true,
         },
-        organizationName: {
+        community_name: {
             type: Sequelize.STRING
         },
-        organizationURL: {
+        community_url: {
             type: Sequelize.STRING
         },
         description: {
