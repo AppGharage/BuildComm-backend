@@ -8,12 +8,12 @@ const db = require('./app/config/config.js');
 const PORT = process.env.PORT || 8080;
 
 // disable urlencoded form request
-app.use(bodyParser.urlencoded({ extended: false }));
+//app.use(bodyParser.urlencoded({ extended: false }));
 // enable json form request
 app.use(bodyParser.json());
 // force: true will drop the table if it already exists
-const env = process.env.ENVIRONMENT || 'development';
-if (env) {
+const environment = process.env.ENVIRONMENT || 'development';
+if (environment == 'development') {
     db.sequelize.sync({ force: true }).then(() => {
         console.log('Drop and Resync with { force: true }');
     });
