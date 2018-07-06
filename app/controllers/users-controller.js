@@ -9,39 +9,52 @@ const Users = db.users;
 
 // Post a users
 exports.create = (req, res) => {
-    // Save to MySQL database
-    console.log(req.body);
+        // Save to MySQL database
+        console.log(req.body);
 
-    //check to make sure none of the field/fields are empty
-    if (req.body.fullName.length == 0 || req.body.email.length == 0 ||
-        req.body.password.length == 0 || req.body.telephone.length == 0 ||
-        req.body.community_id.length == 0) {
-        res.json({
-            'status': false,
-            'message': 'All fields are required'
-        });
-    } else {
-
-        bcrypt.hash('req.body.password', 10, function(err, hash) {
-            Users.create({
-                fullName: req.body.fullName,
-                email: req.body.email,
-                password: hash,
-                telephone: req.body.telephone,
-                community_id: req.body.community_id
-            }).then(users => {
-                // Send created users to client
-                res.json({
-                    'status': true,
-                });
+        //check to make sure none of the field/fields are empty
+        if (req.body.fullName.length == 0 || req.body.email.length == 0 ||
+            req.body.password.length == 0 || req.body.telephone.length == 0 ||
+            req.body.community_id.length == 0) {
+            res.json({
+                'status': false,
+                'message': 'All fields are required'
             });
-        })
+        } else {
+            Users.findOne({
+                where: {
+                    email: req.body.email
+                }
+            }).then((users) => {
+
+                if (users) {
+                    res.json({
+                        'status': false,
+                        'message': 'this email already exists'
+                    });
+
+                } else {
+                    bcrypt.hash('req.body.password', 10, function(err, hash) {
+                        Users.create({
+                            fullName: req.body.fullName,
+                            email: req.body.email,
+                            password: hash,
+                            telephone: req.body.telephone,
+                            community_id: req.body.community_id
+                        }).then(users => {
+                            // Send created users to client
+                            res.json({
+                                'status': true,
+                                'id': users.id
+                            });
+                        });
+                    });
+                }
+
+            });
+        }
     }
-
-}
-
-
-// FETCH all Users
+    // FETCH all Users
 exports.findAll = (req, res) => {
     Users.findAll().then(users => {
         // Send all users to Client

@@ -6,34 +6,46 @@ const Community = db.communities;
 
 // Post 
 exports.create = (req, res) => {
-    // Save to MySQL database
-    console.log(req.body);
+        // Save to MySQL database
+        console.log(req.body);
 
-    //check to make sure none of the field/fields are empty
-    if (req.body.community_name.length == 0 || req.body.community_url.length == 0 ||
-        req.body.description.length == 0) {
-        res.json({
-            'status': false,
-            'message': 'All fields are required'
-        });
-    } else {
-        Community.create({
-            community_name: req.body.community_name,
-            community_url: req.body.community_url,
-            description: req.body.description
-        }).then(communities => {
-            // Send created users to client
+        //check to make sure none of the field/fields are empty
+        if (req.body.community_name.length == 0 || req.body.community_url.length == 0 ||
+            req.body.description.length == 0) {
             res.json({
-                'status': true,
-                'id': communities.id
+                'status': false,
+                'message': 'All fields are required'
             });
-        });
+        } else {
+            Community.findOne({
+                where: {
+                    community_name: req.body.community_name
+                }
+            }).then((communities) => {
+
+                if (communities) {
+                    res.json({
+                        'status': false,
+                        'message': 'this community already exists'
+                    });
+
+                } else {
+                    Community.create({
+                        community_name: req.body.community_name,
+                        community_url: req.body.community_url,
+                        description: req.body.description
+                    }).then(communities => {
+                        // Send created users to client
+                        res.json({
+                            'status': true,
+                            'id': communities.id
+                        });
+                    });
+                }
+            });
+        }
     }
-
-};
-
-
-// FETCH all Users
+    // FETCH all Users
 exports.findAll = (req, res) => {
     Community.findAll().then(communities => {
         // Send all users to Client
