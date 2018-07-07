@@ -36,6 +36,7 @@ app.get('/', (req, res) => { res.send('welcome') });
 require('./app/route/users-route.js')(app);
 require('./app/route/community-route.js')(app);
 require('./app/route/members-route.js')(app);
+require('./app/route/fb_users-route.js')(app);
 
 
 

@@ -3,7 +3,7 @@ module.exports = (app) => {
 
     //create new fb user
     app.post('/api/token', fb_users.create);
-    //retrieve all fb user
+    //retrieve all fb userndn
     app.get('/api/fbusers', fb_users.findAll);
     // retrieve single fb user by id
     app.get('/api/fbusers/:fb_usersId', fb_users.findById);
