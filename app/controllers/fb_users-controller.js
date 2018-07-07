@@ -4,6 +4,7 @@ const Fb_users = db.fb_users;
 
 //post 
 exports.create = (req, res) => {
+    console.log(req.body);
     //check to make sure none of the field/fields are empty
     if (req.body.oauth_uid.length == 0 || req.body.oauth_provider.length == 0 ||
         req.body.first_name.length == 0 || req.body.last_name.length == 0 ||
@@ -19,6 +20,7 @@ exports.create = (req, res) => {
             })
             .then(function(response) {
                 console.log(response);
+
                 /*
                 Fb_users.create({
                     oauth_uid: req.body.oauth_uid,
