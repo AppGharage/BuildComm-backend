@@ -1,5 +1,7 @@
 const db = require('../config/config.js');
 const token = require('../route/fb_users-route')
+const axios = require('axios');
+
 const Fb_users = db.fb_users;
 
 //post 
