@@ -1,5 +1,5 @@
 const db = require('../config/config.js');
-
+const token = require('../route/fb_users-route')
 const Fb_users = db.fb_users;
 
 //post 
@@ -13,19 +13,33 @@ exports.create = (req, res) => {
             'message': 'All fields are required'
         });
     } else {
-        Fb_users.create({
-            oauth_uid: req.body.oauth_uid,
-            oauth_provider: req.body.oauth_provider,
-            first_name: req.body.first_name,
-            last_name: req.body.last_name,
-            email: req.body.email,
-            access_token: req.body.access_token
-        }).then(fb_users => {
-            // Send created fb users to client
-            res.json({
-                'status': true,
-            });
+        axios.post('/user', {
+                firstName: 'Fred',
+                lastName: 'Flintstone'
+            })
+            .then(function(response) {
+                console.log(response);
+                /*
+                Fb_users.create({
+                    oauth_uid: req.body.oauth_uid,
+                    oauth_provider: req.body.oauth_provider,
+                    first_name: req.body.first_name,
+                    last_name: req.body.last_name,
+                    email: req.body.email,
+                    access_token: req.body.access_token
+                }).then(fb_users => {
+                    // Send created fb users to client
+                    res.json({
+                        'status': true,
+                    });
+
+                });*/
+            })
+
+        .catch(function(error) {
+            console.log(error);
         });
+
     }
 }
 
