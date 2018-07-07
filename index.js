@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const env = require('dotenv');
 const cors = require('cors');
+const axios = require('axios');
+
 
 const db = require('./app/config/config.js');
 // Use the environment variable or use a given port
