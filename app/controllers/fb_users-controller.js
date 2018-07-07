@@ -16,9 +16,8 @@ exports.create = (req, res) => {
             'message': 'All fields are required'
         });
     } else {
-        let app_secret = '8708ed5b51176b84a50d48b305b490c5';
-        let app_id =
-            axios.get('/oauth/access_token', {
+
+        axios.get('/oauth/access_token', {
                 params: {
                     grant_type: 'fb_exchange_token',
                     client_id: process.env.APP_ID,
