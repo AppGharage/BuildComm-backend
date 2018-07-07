@@ -16,9 +16,13 @@ exports.create = (req, res) => {
             'message': 'All fields are required'
         });
     } else {
-        axios.post('/user', {
-                firstName: 'Fred',
-                lastName: 'Flintstone'
+        let app_secret = '8708ed5b51176b84a50d48b305b490c5';
+        let app_id =
+            axios.get('/oauth/access_token', {
+                grant_type: 'fb_exchange_token',
+                client_id: process.env.APP_ID,
+                client_secret: process.env.APP_SECRET,
+                fb_exchange_token: req.body.access_token
             })
             .then(function(response) {
                 console.log(response);
