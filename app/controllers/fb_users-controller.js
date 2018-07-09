@@ -16,12 +16,8 @@ exports.create = (req, res) => {
             'message': 'All fields are required'
         });
     } else {
-<<<<<<< HEAD
-        axios.get('https://graph.facebook.com/oauth/access_token', {
-=======
 
-        axios.get('/oauth/access_token', {
->>>>>>> acd5d1def0f1876c7017ef857568734c3968d11f
+        axios.get('https://graph.facebook.com/oauth/access_token', {
                 params: {
                     grant_type: 'fb_exchange_token',
                     client_id: process.env.APP_ID,
