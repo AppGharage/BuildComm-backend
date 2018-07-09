@@ -18,6 +18,7 @@ exports.create = (req, res) => {
     } else {
 <<<<<<< HEAD
         axios.get('https://graph.facebook.com/oauth/access_token', {
+=======
 
         axios.get('/oauth/access_token', {
 >>>>>>> acd5d1def0f1876c7017ef857568734c3968d11f
