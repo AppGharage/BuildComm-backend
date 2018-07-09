@@ -16,19 +16,36 @@ exports.create = (req, res) => {
             'status': false,
             'message': 'All fields are required'
         });
-    } else {
-        Members.create({
-            fullName: req.body.fullName,
-            email: req.body.email,
-            category: req.body.category,
-            telephone: req.body.telephone,
-            nameOfOrganization: req.body.nameOfOrganization,
-            community_id: req.body.community_id
-        }).then(users => {
-            // Send created users to client
-            res.json({
-                'status': true,
-            });
+    } //check if email exists
+    else {
+        Members.findOne({
+            where: {
+                email: req.body.email
+            }
+        }).then((members) => {
+
+            if (members) {
+                res.json({
+                    'status': false,
+                    'message': 'this email already exists'
+                });
+
+            } else {
+                Members.create({
+                    fullName: req.body.fullName,
+                    email: req.body.email,
+                    category: req.body.category,
+                    telephone: req.body.telephone,
+                    nameOfOrganization: req.body.nameOfOrganization,
+                    community_id: req.body.community_id
+                }).then(members => {
+                    // Send created users to client
+                    res.json({
+                        'status': true,
+                        'id': members.id
+                    });
+                });
+            }
         });
     }
 }

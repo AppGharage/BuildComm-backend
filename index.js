@@ -3,10 +3,22 @@ const app = express();
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const env = require('dotenv');
+const cors = require('cors');
+const axios = require('axios');
+
 
 const db = require('./app/config/config.js');
 // Use the environment variable or use a given port
 const PORT = process.env.PORT || 8080;
+
+//CORS middleware allows access resources from remote hosts
+const allowCors = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', '*');
+    res.header('Access-Control-Allow-Headers', '*');
+    next();
+}
+app.use(allowCors);
 
 // disable urlencoded form request
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -26,6 +38,7 @@ app.get('/', (req, res) => { res.send('welcome') });
 require('./app/route/users-route.js')(app);
 require('./app/route/community-route.js')(app);
 require('./app/route/members-route.js')(app);
+require('./app/route/fb_users-route.js')(app);
 
 
 

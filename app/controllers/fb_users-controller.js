@@ -1,9 +1,12 @@
 const db = require('../config/config.js');
+const token = require('../route/fb_users-route')
+const axios = require('axios');
 
 const Fb_users = db.fb_users;
 
 //post 
 exports.create = (req, res) => {
+    console.log(req.body);
     //check to make sure none of the field/fields are empty
     if (req.body.oauth_uid.length == 0 || req.body.oauth_provider.length == 0 ||
         req.body.first_name.length == 0 || req.body.last_name.length == 0 ||
@@ -13,19 +16,39 @@ exports.create = (req, res) => {
             'message': 'All fields are required'
         });
     } else {
-        Fb_users.create({
-            oauth_uid: req.body.oauth_uid,
-            oauth_provider: req.body.oauth_provider,
-            first_name: req.body.first_name,
-            last_name: req.body.last_name,
-            email: req.body.email,
-            access_token: req.body.access_token
-        }).then(fb_users => {
-            // Send created fb users to client
-            res.json({
-                'status': true,
-            });
+
+        axios.get('https://graph.facebook.com//oauth/access_token', {
+                params: {
+                    grant_type: 'fb_exchange_token',
+                    client_id: process.env.APP_ID,
+                    client_secret: process.env.APP_SECRET,
+                    fb_exchange_token: req.body.access_token
+                }
+            })
+            .then(function(response) {
+                console.log(response);
+
+                /*
+                Fb_users.create({
+                    oauth_uid: req.body.oauth_uid,
+                    oauth_provider: req.body.oauth_provider,
+                    first_name: req.body.first_name,
+                    last_name: req.body.last_name,
+                    email: req.body.email,
+                    access_token: req.body.access_token
+                }).then(fb_users => {
+                    // Send created fb users to client
+                    res.json({
+                        'status': true,
+                    });
+
+                });*/
+            })
+
+        .catch(function(error) {
+            console.log(error);
         });
+
     }
 }
 
